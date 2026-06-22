@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PitchConnect | Elite Matchmaking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-zinc-950 text-white font-sans">
+
+    <nav class="p-6 border-b border-zinc-800 flex justify-between items-center bg-zinc-950">
+        <h1 class="text-2xl font-bold tracking-tighter text-lime-400">PITCHCONNECT</h1>
+
+        <div class="space-x-6 text-sm font-medium uppercase tracking-widest flex items-center">
+            <a href="{% url 'index' %}" class="hover:text-lime-400 transition">Explore</a>
+            <a href="{% url 'match_list' %}" class="hover:text-lime-400 transition">Lobby</a>
+
+            {% if user.is_authenticated %}
+            <a href="{% url 'profile' %}" class="hover:text-lime-400 transition">My Card</a>
+            <a href="{% url 'logout' %}"
+                class="text-red-500 text-xs border border-red-500/20 px-4 py-2 rounded-full hover:bg-red-500/10 transition">
+                Logout
+            </a>
+            {% else %}
+            <a href="{% url 'login' %}"
+                class="bg-lime-400 text-black px-6 py-2 rounded-full hover:bg-white transition font-bold">
+                Login
+            </a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <header class="py-20 px-6 text-center">
+        <h2 class="text-5xl md:text-7xl font-black mb-4 uppercase italic">Find Your Pitch.</h2>
+        <p class="text-zinc-400 max-w-xl mx-auto">Book elite turfs in Mira Road and join the most competitive matches in
+            your area.</p>
+    </header>
+
+    <section class="max-w-6xl mx-auto px-6 py-12">
+        <h3 class="text-xl font-bold mb-8 uppercase tracking-widest text-zinc-500">Available Turfs</h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {% for turf in turfs %}
+            <div
+                class="bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 hover:border-lime-400 transition-all duration-300 group">
+                {% if turf.image %}
+                <img src="{{ turf.image.url }}" alt="{{ turf.name }}"
+                    class="w-full h-48 object-cover group-hover:scale-105 transition duration-500">
+                {% endif %}
+                <div class="p-6">
+                    <h4 class="text-xl font-bold mb-1">{{ turf.name }}</h4>
+                    <p class="text-zinc-500 text-sm mb-4">{{ turf.location }}</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-lime-400 font-bold">₹{{ turf.price_per_hour }}/hr</span>
+                        <a href="{% url 'turf_detail' turf.id %}"
+                            class="text-sm font-bold underline hover:text-lime-400">View Details</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-zinc-500 italic">No turfs available yet. Check back later!</p>
+            {% endfor %}
+        </div>
+    </section>
+
+</body>
+
+</html>

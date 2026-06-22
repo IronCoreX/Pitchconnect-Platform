@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Join the Club | PitchConnect</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-zinc-950 text-white flex items-center justify-center min-h-screen">
+
+    <div class="w-full max-w-md p-8 bg-zinc-900 rounded-[2.5rem] border border-zinc-800 shadow-2xl">
+        <div class="text-center mb-10">
+            <h1 class="text-3xl font-black text-lime-400 tracking-tighter italic uppercase">Join the Club</h1>
+            <p class="text-zinc-500 text-sm mt-2">Create your elite player profile.</p>
+        </div>
+
+        <form method="POST" class="space-y-4">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="w-full bg-lime-400 text-black font-black py-4 rounded-2xl hover:bg-white transition uppercase tracking-widest mt-4">
+                Create Account
+            </button>
+        </form>
+
+        <p class="text-center text-zinc-500 text-xs mt-8">
+            Already a member? <a href="{% url 'login' %}" class="text-white underline font-bold">Sign In</a>
+        </p>
+    </div>
+
+    <style>
+        p { margin-bottom: 1rem; }
+        input { 
+            width: 100%; 
+            background: #18181b; 
+            border: 1px solid #27272a; 
+            padding: 0.75rem 1rem; 
+            border-radius: 0.75rem; 
+            margin-top: 0.25rem;
+            outline: none;
+            color: white;
+        }
+        input:focus { border-color: #a3e635; }
+        label { font-size: 0.75rem; text-transform: uppercase; color: #71717a; font-weight: 700; }
+        /* Style the password help text from Django */
+        .helptext { display: block; font-size: 10px; color: #52525b; margin-top: 4px; }
+        ul { list-style: none; font-size: 10px; color: #52525b; padding: 0; }
+    </style>
+</body>
+</html>
